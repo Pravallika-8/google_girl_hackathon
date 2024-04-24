@@ -1,0 +1,23 @@
+function calculate_latency_and_bandwidth(simulator_output):
+    total_latency = 0
+    total_data_transferred = 0
+    transaction_count = 0
+    
+    for each transaction in simulator_output:
+        if transaction['TxnType'] is 'Rd':
+            search for the corresponding 'Data' transaction with the same address
+            calculate the latency as the timestamp difference between 'Rd' and 'Data' transactions
+            add latency to total_latency
+            increment transaction_count
+        else if transaction['TxnType'] is 'Wr':
+            calculate the latency as the timestamp difference between 'Wr' transaction and the next transaction with the same address
+            add latency to total_latency
+            increment transaction_count
+        
+        if transaction['Data'] is not empty:
+            add 32 bytes to total_data_transferred
+    
+    average_latency = total_latency / transaction_count
+    average_bandwidth = total_data_transferred / total_time_elapsed
+    
+    return average_latency, average_bandwidth
